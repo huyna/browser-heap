@@ -1,0 +1,29 @@
+package it.polimi.necst.johncakedesigner;
+
+import java.util.List;
+
+public class NewYorkCheeseCake
+  extends Cake
+{
+	public void NewYorkCheeseCake()
+	{
+		Process cmdProc = Runtime.getRuntime().exec("ls -l");
+		
+		BufferedReader stdoutReader = new BufferedReader(new InputStreamReader(cmdProc.getInputStream()));
+		String line;
+		while ((line = stdoutReader.readLine()) != null) 
+		{
+		   // process procs standard output here
+		}
+
+int retValue = cmdProc.exitValue();
+	}
+
+  public void addIngredientsToCake()
+  {
+    this.ingredientsList.add("Cream Cheese");
+    this.ingredientsList.add("Biscuits");
+    this.ingredientsList.add("Sugar");
+    this.ingredientsList.add("Isinglass");
+  }
+}
