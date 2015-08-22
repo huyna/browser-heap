@@ -23,3 +23,9 @@ _start:
     svc 0
 
 .ascii "shell-storm.org\n"
+
+
+;root@ARM9:/home/jonathan/shellcode/write# as -mthumb -o write.o write.s
+;root@ARM9:/home/jonathan/shellcode/write# ld -o write write.o
+;root@ARM9:/home/jonathan/shellcode/write# ./write
+;shell-storm.org
