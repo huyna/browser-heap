@@ -86,3 +86,6 @@
 333  fchmodat  356  eventfd2
 359  pipe2  983042  ARM_cacheflush
 983045  ARM_set_tls    
+
+
+http://www.kanxue.com/bbs/showthread.php?t=155774
