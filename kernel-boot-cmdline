@@ -1,1 +1,5 @@
 [119160] cmdline: console=ttyHSL0,115200,n8 androidboot.hardware=hammerhead user_debug=31 maxcpus=2 msm_watchdog_v2.enable=0 kgdboc=ttyHSL0,115200 kgdbretry=4 uart_console=enable gpt=enable lge.kcal=0|0|0|x lge.rev=rev_11 androidboot.laf androidboot.emmc=true fast
+
+
+[    2.490664] kgdb: Registered I/O driver kgdbts.
+[    2.495198] kgdb: Waiting for connection from remote gdb...
