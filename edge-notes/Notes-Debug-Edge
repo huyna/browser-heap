@@ -1,0 +1,26 @@
+Note linh tinh: 
+
++ break su dung trong Edge de print log ra tu js: 
+  - bp chakra!Js::Math::Abs "du poi(poi(esp+0x14)+0x08);g"
+  
++ bat standard page heap
+  - gflags /p /enable myapp.exe 
+
++ bat FULL page heap
+  - gflags /p /enable myapp.exe /full
+  
+=============================================================
+Background - https://www.chromium.org/developers/testing/page-heap-for-chrome
+
+1. Page heap is Window build-in support for heap verification. There are two modes:
+
+- FULL page-heap places a non-accessible page at the end of the allocation. Full-page heap has high memory requirements. Its advantage is that a process will access violate (AV) exactly at the point of illegal memory operation.
+
+- NORMAL page-heap checks fill patterns when the block gets freed. Normal page heap can be used for testing large-scale process without the high memory consumption overhead of full-page heap. 
+However, normal page heap delays detection until the blocks are freed - thus failures are more difficult to debug.
+
+When an application foo.exe is launched, Windows looks up in "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\foo.exe" for page heap and other settings of the executable and acts accordingly.
+
+2. To turn on page heap for an executable, one just needs to modify the settings in registry. Gflags is a utility downloadable from Microsoft to edit settings under "Image File Execution Options".
+
+=============================================================
