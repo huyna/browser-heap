@@ -21,6 +21,48 @@ However, normal page heap delays detection until the blocks are freed - thus fai
 
 When an application foo.exe is launched, Windows looks up in "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\foo.exe" for page heap and other settings of the executable and acts accordingly.
 
-2. To turn on page heap for an executable, one just needs to modify the settings in registry. Gflags is a utility downloadable from Microsoft to edit settings under "Image File Execution Options".
+2. To turn on page heap for an executable, one just needs to modify the settings in registry. 
+Gflags is a utility downloadable from Microsoft to edit settings under "Image File Execution Options".
 
 =============================================================
+                                                              
+ +-----+---------------+--+                                   
+ |     |               |  | LIGHT (NORMAL) page-heap allocated block   
+ +-----+---------------+--+                                   
+     ^         ^        ^                                     
+     |         |        8 suffix bytes filled with 0xA0       
+     |         user allocation (filled with E0 if zeroing not requested) 
+     block header (starts with 0xABCDAAAA and ends with 0xDCBAAAAA).
+     A `dt DPH_BLOCK_INFORMATION' on header address followed by  
+     a `dps' on the StackTrace field gives the stacktrace of allocation.  
+                                                              
+ +-----+---------------+--+                                   
+ |     |               |  | LIGHT (NORMAL) page-heap freed block           
+ +-----+---------------+--+                                   
+     ^         ^        ^                                     
+     |         |        8 suffix bytes filled with 0xA0       
+     |         user allocation (filled with F0 bytes)         
+     block header (starts with 0xABCDAAA9 and ends with 0xDCBAAA9). 
+     A `dt DPH_BLOCK_INFORMATION' on header address followed by  
+     a `dps' on the StackTrace field gives the stacktrace of allocation.  
+                                                              
+ +-----+---------+--+------                                   
+ |     |         |  | ... N/A page     FULL page-heap         
+ +-----+---------+--+------            allocated block        
+     ^         ^   ^                                          
+     |         |   0-7 suffix bytes filled with 0xD0          
+     |         user allocation (filled with C0 if zeroing not requested) 
+     block header (starts with 0xABCDBBBB and ends with 0xDCBABBBB).
+     A `dt DPH_BLOCK_INFORMATION' on header address followed by  
+     a `dps' on the StackTrace field gives the stacktrace of allocation.  
+                                                              
+ +-----+---------+--+------                                   
+ |     |         |  | ... N/A page     Full page heap         
+ +-----+---------+--+------            freed block            
+     ^         ^   ^                                          
+     |         |   0-7 suffix bytes filled with 0xD0          
+     |         user allocation (filled with F0 bytes)         
+     block header (starts with 0xABCDBBA and ends with 0xDCBABBBA).
+     A `dt DPH_BLOCK_INFORMATION' on header address followed by  
+     a `dps' on the StackTrace field gives the stacktrace of allocation.  
+==================================================================================
