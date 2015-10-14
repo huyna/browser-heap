@@ -1,0 +1,23 @@
+1:064> !heap -p -a 080b8c30
+ReadMemory error for address 00000000
+Use `!address 00000000' to check validity of the address.
+ReadMemory error for address 0e4c6f3a
+Use `!address 0e4c6f3a' to check validity of the address.
+ReadMemory error for address 00000000
+Use `!address 00000000' to check validity of the address.
+ReadMemory error for address 09cf6f3a
+Use `!address 09cf6f3a' to check validity of the address.
+ReadMemory error for address 06cf6f3a
+Use `!address 06cf6f3a' to check validity of the address.
+ReadMemory error for address 04366f3a
+Use `!address 04366f3a' to check validity of the address.
+ 
+1:064> dd 080b8c30
+080b8c30  5f359484 00000003 080bea10 00000000
+080b8c40  00000000 080a0e70 00000000 00000000
+080b8c50  080dd800 00030004 00010006 00000000
+080b8c60  ffffffff ffffffff 00000000 00000048
+080b8c70  00000010 00000002 080a2a40 00000000
+080b8c80  00000000 00000000 00000000 00000000
+080b8c90  00000000 00000000 00000000 00000000
+080b8ca0  00000000 00000000 00000000 00000000
